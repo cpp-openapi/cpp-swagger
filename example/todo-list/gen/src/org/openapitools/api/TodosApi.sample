@@ -1,0 +1,45 @@
+
+# This is a sample api mustache template.  It is representing a fictitious
+# language and won't be usable or compile to anything without lots of changes.
+# Use it as an example.  You can access the variables in the generator object
+# like such:
+
+# use the package from the `apiPackage` variable
+package: org.openapitools.api
+
+# operations block
+classname: TodosApi
+
+# loop over each operation in the API:
+
+# each operation has an `operationId`:
+operationId: addOne
+
+# and parameters:
+body: Item
+
+
+# each operation has an `operationId`:
+operationId: destroyOne
+
+# and parameters:
+id: Long
+
+
+# each operation has an `operationId`:
+operationId: findTodos
+
+# and parameters:
+since: Long
+limit: Integer
+
+
+# each operation has an `operationId`:
+operationId: updateOne
+
+# and parameters:
+id: Long
+body: Item
+
+
+# end of operations block

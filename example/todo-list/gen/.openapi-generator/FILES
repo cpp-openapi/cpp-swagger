@@ -1,0 +1,4 @@
+myFile.sample
+src/org/openapitools/api/TodosApi.sample
+src/org/openapitools/model/Error.sample
+src/org/openapitools/model/Item.sample

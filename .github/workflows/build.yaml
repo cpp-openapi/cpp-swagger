@@ -1,0 +1,29 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get specific version CMake, v3.21.2
+      uses: lukka/get-cmake@v3.21.2
+
+    - uses: actions/setup-java@v2
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+    
+    - name: CMake configure
+      run: cmake . -B build
+
+    - name: CMake build generator
+      run: cmake --build build --target mvn-package
+
+    - name: CMake generate example
+      run: cmake --build build --target generate-example
