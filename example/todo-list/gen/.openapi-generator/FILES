@@ -1,4 +1,9 @@
 myFile.sample
-src/org/openapitools/api/TodosApi.sample
-src/org/openapitools/model/Error.sample
-src/org/openapitools/model/Item.sample
+src/CMakeLists.txt
+src/api/TodosApi.sample
+src/model/CMakeLists.txt
+src/model/Error.cpp
+src/model/Error.h
+src/model/Item.cpp
+src/model/Item.h
+src/model/model_common.h

@@ -1,0 +1,14 @@
+{{#models}}{{#model}}/*
+ * {{classname}}.cpp
+ *
+ * {{description}}
+ */
+
+#include "{{classname}}.h"
+
+using namespace openapi;
+
+OPENAP_JSON_CONVERT_FUNCS({{classname}}{{#vars}}, {{name}}{{/vars}})
+
+{{/model}}
+{{/models}}

@@ -1,0 +1,44 @@
+{{#models}}{{#model}}/*
+ * {{classname}}.h
+ *
+ * {{description}}
+ */
+
+#pragma once
+
+{{/model}}{{/models}}
+#include <string>
+#include <optional>
+#include "model_common.h"
+{{#imports}}
+// {{{import}}}
+{{/imports}}
+
+namespace openapi {
+{{#models}}{{#model}}
+
+/*! \brief {{{description}}}
+ *
+ *  \ingroup Models
+ *
+ */
+
+struct {{classname}}{
+    {{#vars}}
+    {{^isContainer}}
+    {{#isPrimitiveType}}
+    std::optional<{{dataType}}> {{name}}{};
+    {{/isPrimitiveType}}
+    {{^isPrimitiveType}}
+    std::optional<{{dataType}}> {{name}};
+    {{/isPrimitiveType}}
+    {{/isContainer}}
+    {{#isContainer}}
+    {{dataType}}{{#isMap}}<std::string, std::string>{{/isMap}}{{^isMap}}<{{#items}}{{dataType}}{{/items}}>{{/isMap}} {{name}};
+    {{/isContainer}}
+	{{/vars}}
+    OPENAPI_JSON_CONVERT_FUNCS_DECLARE
+};
+{{/model}}
+{{/models}}
+}

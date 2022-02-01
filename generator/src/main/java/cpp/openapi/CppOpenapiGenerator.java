@@ -2,11 +2,12 @@ package cpp.openapi;
 
 import org.openapitools.codegen.*;
 import io.swagger.models.properties.*;
+import org.openapitools.codegen.languages.AbstractCppCodegen;
 
 import java.util.*;
 import java.io.File;
 
-public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig {
+public class CppOpenapiGenerator extends AbstractCppCodegen implements CodegenConfig {
 
   // source folder where to write the files
   protected String sourceFolder = "src";
@@ -74,14 +75,52 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
     outputFolder = "generated-code/cpp-openapi";
 
     /**
+     * Template Location.  This is the location which templates will be read from.  The generator
+     * will use the resource stream to attempt to read the templates.
+     */
+    templateDir = "cpp-openapi";
+
+    /**
+     * Api Package.  Optional, if needed, this can be used in templates
+     */
+    apiPackage = "api";
+
+    /**
+     * Model Package.  Optional, if needed, this can be used in templates
+     */
+    modelPackage = "model";
+    
+    /**
      * Models.  You can write model files using the modelTemplateFiles map.
      * if you want to create one template for file, you can do so here.
      * for multiple files for model, just put another entry in the `modelTemplateFiles` with
      * a different extension
      */
     modelTemplateFiles.put(
-      "model.mustache", // the template to use
-      ".sample");       // the extension for each file to write
+      "model_h.mustache", // the template to use
+      ".h");       // the extension for each file to write
+
+    modelTemplateFiles.put(
+      "model_cpp.mustache", // the template to use
+      ".cpp");       // the extension for each file to write
+
+    // model common header
+    supportingFiles.add(new SupportingFile("model_common.mustache",   // the input template or file
+      sourceFolder + File.separator + modelPackage,              // the destination folder, relative `outputFolder`
+      "model_common.h")                                          // the output file
+    );
+
+    // model cmake file
+    supportingFiles.add(new SupportingFile("model_cmake_txt.mustache",   // the input template or file
+      sourceFolder + File.separator + modelPackage,              // the destination folder, relative `outputFolder`
+      "CMakeLists.txt")                                          // the output file
+    );
+
+    // lib cmake file
+    supportingFiles.add(new SupportingFile("lib_cmake_txt.mustache",   // the input template or file
+      sourceFolder,              // the destination folder, relative `outputFolder`
+      "CMakeLists.txt")                                          // the output file
+    );
 
     /**
      * Api classes.  You can write classes for each Api file with the apiTemplateFiles map.
@@ -91,22 +130,6 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
     apiTemplateFiles.put(
       "api.mustache",   // the template to use
       ".sample");       // the extension for each file to write
-
-    /**
-     * Template Location.  This is the location which templates will be read from.  The generator
-     * will use the resource stream to attempt to read the templates.
-     */
-    templateDir = "cpp-openapi";
-
-    /**
-     * Api Package.  Optional, if needed, this can be used in templates
-     */
-    apiPackage = "org.openapitools.api";
-
-    /**
-     * Model Package.  Optional, if needed, this can be used in templates
-     */
-    modelPackage = "org.openapitools.model";
 
     /**
      * Reserved words.  Override this with reserved words specific to your language
@@ -142,7 +165,33 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
         "Type1",      // replace these with your types
         "Type2")
     );
+
+    makeTypeMappings();
   }
+
+  private void makeTypeMappings() {
+    // Types
+    String cpp_array_type = "std::list";
+    String cpp_string_type = "openapi::string_t";
+    typeMapping = new HashMap<>();
+
+    typeMapping.put("string", cpp_string_type);
+    typeMapping.put("integer", "int");
+    typeMapping.put("float", "float");
+    typeMapping.put("long", "int"); // if int is marked as int64. TODO: handle int64_t
+    typeMapping.put("boolean", "bool");
+    typeMapping.put("double", "double");
+    typeMapping.put("array", cpp_array_type);
+    typeMapping.put("number", "long");
+    typeMapping.put("binary", cpp_string_type);
+    typeMapping.put("password", cpp_string_type);
+    typeMapping.put("file", cpp_string_type);
+    typeMapping.put("DateTime", cpp_string_type);
+    typeMapping.put("Date", cpp_string_type);
+    typeMapping.put("UUID", cpp_string_type);
+    typeMapping.put("URI", cpp_string_type);
+  }
+  
 
   /**
    * Escapes a reserved word as defined in the `reservedWords` array. Handle escaping

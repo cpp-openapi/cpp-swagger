@@ -97,6 +97,7 @@ set(OPENAPI_JAR_SEPARATOR ";")
 endif()
 add_custom_target(
     generate-example
+    DEPENDS mvn-package
     COMMAND "${Java_JAVA_EXECUTABLE}"
         "-cp" "${OPENAPI_GENERATOR}${OPENAPI_JAR_SEPARATOR}${CMAKE_CURRENT_SOURCE_DIR}/generator/target/cpp-openapi-openapi-generator-1.0.0.jar"
         "org.openapitools.codegen.OpenAPIGenerator" "generate"
@@ -106,3 +107,9 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+# add_custom_target(
+#     build-all
+#     DEPENDS mvn-package generate-example
+# )
+
+add_subdirectory(example)

@@ -1,0 +1,26 @@
+file(GLOB SOURCES
+    *.h
+    *.cpp
+)
+
+add_library({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model
+    STATIC ${SOURCES}
+)
+
+target_include_directories({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model
+    PUBLIC openapi_json openapi_nlohmann_json openapi_runtime
+)
+
+target_compile_definitions(
+    {{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model PUBLIC ${OPENAPI_JSON}=1
+)
+
+# once link to runtime this can be removed
+if(OPENAPI_UTF16_STRINGS)
+    target_compile_definitions({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model PUBLIC OPENAPI_UTF16_STRINGS=1)
+    message(STATUS "generated model uses OPENAPI_UTF16_STRINGS=1")
+endif()

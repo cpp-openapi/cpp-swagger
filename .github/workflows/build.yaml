@@ -27,3 +27,7 @@ jobs:
 
     - name: CMake generate example
       run: cmake --build build --target generate-example
+
+    # TODO: add release build
+    - name: CMake build example
+      run: cmake --build build --config Debug

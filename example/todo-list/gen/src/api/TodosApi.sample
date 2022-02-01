@@ -5,7 +5,7 @@
 # like such:
 
 # use the package from the `apiPackage` variable
-package: org.openapitools.api
+package: api
 
 # operations block
 classname: TodosApi
@@ -16,30 +16,30 @@ classname: TodosApi
 operationId: addOne
 
 # and parameters:
-body: Item
+body: std::shared_ptr&lt;Item&gt;
 
 
 # each operation has an `operationId`:
 operationId: destroyOne
 
 # and parameters:
-id: Long
+id: int
 
 
 # each operation has an `operationId`:
 operationId: findTodos
 
 # and parameters:
-since: Long
-limit: Integer
+since: int
+limit: int
 
 
 # each operation has an `operationId`:
 operationId: updateOne
 
 # and parameters:
-id: Long
-body: Item
+id: int
+body: std::shared_ptr&lt;Item&gt;
 
 
 # end of operations block
