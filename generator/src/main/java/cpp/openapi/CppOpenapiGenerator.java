@@ -104,6 +104,10 @@ public class CppOpenapiGenerator extends AbstractCppCodegen implements CodegenCo
       "model_cpp.mustache", // the template to use
       ".cpp");       // the extension for each file to write
 
+    modelTemplateFiles.put(
+      "model_test_cpp.mustache", // the template to use
+      "_test.cpp");       // the extension for each file to write
+
     // model common header
     supportingFiles.add(new SupportingFile("model_common.mustache",   // the input template or file
       sourceFolder + File.separator + modelPackage,              // the destination folder, relative `outputFolder`

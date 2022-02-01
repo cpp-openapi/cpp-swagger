@@ -31,3 +31,6 @@ jobs:
     # TODO: add release build
     - name: CMake build example
       run: cmake --build build --config Debug
+
+    - name: CMake run tests
+      run: ctest -C Debug --test-dir build

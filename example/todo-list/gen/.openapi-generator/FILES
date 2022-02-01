@@ -4,6 +4,8 @@ src/api/TodosApi.sample
 src/model/CMakeLists.txt
 src/model/Error.cpp
 src/model/Error.h
+src/model/Error_test.cpp
 src/model/Item.cpp
 src/model/Item.h
+src/model/Item_test.cpp
 src/model/model_common.h

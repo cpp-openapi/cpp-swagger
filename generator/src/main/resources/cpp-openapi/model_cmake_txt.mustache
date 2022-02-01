@@ -3,6 +3,9 @@ file(GLOB SOURCES
     *.cpp
 )
 
+# filter out tests
+list(FILTER SOURCES EXCLUDE REGEX .*_test\\.cpp)
+
 add_library({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model
     STATIC ${SOURCES}
 )
@@ -24,3 +27,17 @@ if(OPENAPI_UTF16_STRINGS)
     target_compile_definitions({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model PUBLIC OPENAPI_UTF16_STRINGS=1)
     message(STATUS "generated model uses OPENAPI_UTF16_STRINGS=1")
 endif()
+
+# testing
+file(GLOB TEST_SOURCES
+    *_test.cpp
+)
+
+foreach(test_file ${TEST_SOURCES})
+    get_filename_component(test_name ${test_file} NAME_WE)
+    add_executable(${test_name} ${test_file})
+    
+    target_link_libraries(${test_name} PRIVATE gtest_main {{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model)
+
+    add_test(NAME ${test_name} COMMAND ${test_name} WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+endforeach()

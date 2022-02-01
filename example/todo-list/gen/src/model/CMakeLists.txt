@@ -3,6 +3,9 @@ file(GLOB SOURCES
     *.cpp
 )
 
+# filter out tests
+list(FILTER SOURCES EXCLUDE REGEX .*_test\\.cpp)
+
 add_library(a_To_Do_list_application_model
     STATIC ${SOURCES}
 )
@@ -24,3 +27,17 @@ if(OPENAPI_UTF16_STRINGS)
     target_compile_definitions(a_To_Do_list_application_model PUBLIC OPENAPI_UTF16_STRINGS=1)
     message(STATUS "generated model uses OPENAPI_UTF16_STRINGS=1")
 endif()
+
+# testing
+file(GLOB TEST_SOURCES
+    *_test.cpp
+)
+
+foreach(test_file ${TEST_SOURCES})
+    get_filename_component(test_name ${test_file} NAME_WE)
+    add_executable(${test_name} ${test_file})
+    
+    target_link_libraries(${test_name} PRIVATE gtest_main a_To_Do_list_application_model)
+
+    add_test(NAME ${test_name} COMMAND ${test_name} WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+endforeach()

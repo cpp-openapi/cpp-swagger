@@ -111,5 +111,5 @@ add_custom_target(
 #     build-all
 #     DEPENDS mvn-package generate-example
 # )
-
+enable_testing()
 add_subdirectory(example)
