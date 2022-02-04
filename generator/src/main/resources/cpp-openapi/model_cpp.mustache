@@ -8,7 +8,28 @@
 
 using namespace openapi;
 
-OPENAP_JSON_CONVERT_FUNCS({{classname}}{{#vars}}, {{name}}{{/vars}})
+// macro should do the same job
+// OPENAP_JSON_CONVERT_FUNCS({{classname}}{{#vars}}, {{name}}{{/vars}})
+
+void {{classname}}::ToJSON(Json & j) const
+{
+    // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
+    {{#vars}}
+    j.AddMember<decltype(this->{{name}})>(openapi::StringT(OPENAPI_LITERAL({{name}})), {{name}});
+    {{/vars}}
+}
+
+void {{classname}}::FromJSON(const Json & j)
+{
+    // OPENAPI_FOR_EACH(OPENAPI_FROM_JSON_MEMBER, __VA_ARGS__)
+    {{#vars}}
+    if(j.HasKey(openapi::StringT(OPENAPI_LITERAL({{name}}))))
+    {
+        using V = remove_optional<decltype(this->{{name}})>::type;
+        this->{{name}} = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL({{name}})));
+    }
+    {{/vars}}
+}
 
 {{/model}}
 {{/models}}

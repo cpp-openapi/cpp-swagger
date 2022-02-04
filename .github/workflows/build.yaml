@@ -22,14 +22,11 @@ jobs:
     - name: CMake configure
       run: cmake . -B build
 
-    - name: CMake build generator
-      run: cmake --build build --target mvn-package
-
     - name: CMake generate example
-      run: cmake --build build --target generate-example
+      run: cmake --build build --target build-all-ci
 
     # TODO: add release build
-    - name: CMake build example
+    - name: CMake build generator and example
       run: cmake --build build --config Debug
 
     - name: CMake run tests

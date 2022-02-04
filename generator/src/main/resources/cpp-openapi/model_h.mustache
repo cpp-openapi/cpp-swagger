@@ -11,7 +11,7 @@
 #include <optional>
 #include "model_common.h"
 {{#imports}}
-// {{{import}}}
+{{{import}}}
 {{/imports}}
 
 namespace openapi {
@@ -34,7 +34,14 @@ struct {{classname}}{
     {{/isPrimitiveType}}
     {{/isContainer}}
     {{#isContainer}}
-    {{dataType}}{{#isMap}}<std::string, std::string>{{/isMap}}{{^isMap}}<{{#items}}{{dataType}}{{/items}}>{{/isMap}} {{name}};
+        {{#isMap}}
+    // additional properties should be rendered as json. string for now.
+    {{dataType}} {{name}};
+        {{/isMap}}
+        {{^isMap}}
+    // array
+    {{dataType}}<{{#items}}{{dataType}}{{/items}}> {{name}};
+        {{/isMap}}
     {{/isContainer}}
 	{{/vars}}
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE

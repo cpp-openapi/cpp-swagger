@@ -1,0 +1,80 @@
+
+# This is a sample api mustache template.  It is representing a fictitious
+# language and won't be usable or compile to anything without lots of changes.
+# Use it as an example.  You can access the variables in the generator object
+# like such:
+
+# use the package from the `apiPackage` variable
+package: api
+
+# operations block
+classname: TasksApi
+
+# loop over each operation in the API:
+
+# each operation has an `operationId`:
+operationId: addCommentToTask
+
+# and parameters:
+id: int
+body: ACommentToCreate
+
+
+# each operation has an `operationId`:
+operationId: createTask
+
+# and parameters:
+body: Task
+
+
+# each operation has an `operationId`:
+operationId: deleteTask
+
+# and parameters:
+id: int
+
+
+# each operation has an `operationId`:
+operationId: getTaskComments
+
+# and parameters:
+id: int
+pageSize: int
+since: openapi::string_t
+
+
+# each operation has an `operationId`:
+operationId: getTaskDetails
+
+# and parameters:
+id: int
+
+
+# each operation has an `operationId`:
+operationId: listTasks
+
+# and parameters:
+sinceId: int
+tags: std::vector
+status: std::vector
+pageSize: int
+
+
+# each operation has an `operationId`:
+operationId: updateTask
+
+# and parameters:
+id: int
+body: Task
+
+
+# each operation has an `operationId`:
+operationId: uploadTaskFile
+
+# and parameters:
+id: int
+file: openapi::string_t
+description: openapi::string_t
+
+
+# end of operations block

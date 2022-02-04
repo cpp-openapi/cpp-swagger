@@ -2,12 +2,15 @@ package cpp.openapi;
 
 import org.openapitools.codegen.*;
 import io.swagger.models.properties.*;
-import org.openapitools.codegen.languages.AbstractCppCodegen;
+// import org.openapitools.codegen.languages.AbstractCppCodegen;
+import io.swagger.v3.oas.models.media.Schema;
+import org.openapitools.codegen.utils.ModelUtils;
+import org.openapitools.codegen.utils.StringUtils;
 
 import java.util.*;
 import java.io.File;
 
-public class CppOpenapiGenerator extends AbstractCppCodegen implements CodegenConfig {
+public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig {
 
   // source folder where to write the files
   protected String sourceFolder = "src";
@@ -166,8 +169,8 @@ public class CppOpenapiGenerator extends AbstractCppCodegen implements CodegenCo
      */
     languageSpecificPrimitives = new HashSet<String>(
       Arrays.asList(
-        "Type1",      // replace these with your types
-        "Type2")
+        "int",      // replace these with your types
+        "bool")
     );
 
     makeTypeMappings();
@@ -175,18 +178,20 @@ public class CppOpenapiGenerator extends AbstractCppCodegen implements CodegenCo
 
   private void makeTypeMappings() {
     // Types
-    String cpp_array_type = "std::list";
+    String cpp_array_type = "std::vector";
     String cpp_string_type = "openapi::string_t";
+    String cpp_int_type = "int";
     typeMapping = new HashMap<>();
 
     typeMapping.put("string", cpp_string_type);
-    typeMapping.put("integer", "int");
+    typeMapping.put("integer", cpp_int_type);
     typeMapping.put("float", "float");
-    typeMapping.put("long", "int"); // if int is marked as int64. TODO: handle int64_t
+    typeMapping.put("long", cpp_int_type); // if int is marked as int64. TODO: handle int64_t
     typeMapping.put("boolean", "bool");
     typeMapping.put("double", "double");
     typeMapping.put("array", cpp_array_type);
-    typeMapping.put("number", "long");
+    typeMapping.put("set", cpp_array_type); // unique array
+    typeMapping.put("number", cpp_int_type);
     typeMapping.put("binary", cpp_string_type);
     typeMapping.put("password", cpp_string_type);
     typeMapping.put("file", cpp_string_type);
@@ -194,8 +199,102 @@ public class CppOpenapiGenerator extends AbstractCppCodegen implements CodegenCo
     typeMapping.put("Date", cpp_string_type);
     typeMapping.put("UUID", cpp_string_type);
     typeMapping.put("URI", cpp_string_type);
+    typeMapping.put("Map", cpp_string_type); // hack. Skip additional properties case
   }
   
+  @Override
+  public String toModelImport(String name) {
+      // use mapped type first
+      String typeName = name;
+      if(typeMapping.containsKey(typeName))
+      {
+        typeName = typeMapping.get(typeName);
+      }
+
+      String[] skipTypes = new String[]{"int", "openapi::string_t", "bool", "float"};
+      if (Arrays.asList(skipTypes).contains(typeName)){
+        return null;
+      }
+      if(typeName.equals("std::vector")){
+        return "#include <vector>";
+      }
+      
+
+      // if (name.equals("std::string")) {
+      //     return "#include <string>";
+      // } else if (name.equals("std::vector") || name.equals("set")) {
+      //     return "#include <vector>";
+      // } else if(name.equals("integer") || name.equals("number") 
+      // || name.contains("string") || name.equals("DateTime") || name.equals("Date") || name.equals("URI"))
+      // { // string does not need to be included
+      //   return null;
+      // }
+      // } else if (name.equals("Map")) {
+      //     return "#include <map>";
+      // }
+      return "#include \"" + name + ".h\"";
+      // return "bad type " + name;      
+  }
+
+  @Override
+    public String toInstantiationType(Schema p) {
+        if (ModelUtils.isArraySchema(p)) {
+            return instantiationTypes.get("array");
+        } else {
+            return null;
+        }
+    }
+
+    // @Override
+    // public String getTypeDeclaration(Schema p) {
+    //     String openAPIType = getSchemaType(p);
+    //     //if (languageSpecificPrimitives.contains(openAPIType)) {
+    //         return toModelName(openAPIType);
+    //     //} else {
+    //     //    return openAPIType;
+    //     //}
+    // }
+
+    @Override
+    public String getSchemaType(Schema p) {
+        String openAPIType = super.getSchemaType(p);
+        String type = null;
+        if (typeMapping.containsKey(openAPIType)) {
+            type = typeMapping.get(openAPIType);
+            if (languageSpecificPrimitives.contains(type)) {
+                return toModelName(type);
+            }
+        } else {
+            type = openAPIType;
+        }
+        return toModelName(type);
+    }
+
+    @Override
+    public String toModelName(String type) {
+        if (typeMapping.keySet().contains(type) ||
+                typeMapping.values().contains(type) ||
+                defaultIncludes.contains(type) ||
+                languageSpecificPrimitives.contains(type)) {
+            return type;
+        } else {
+            return StringUtils.camelize(type, false);
+            // return Character.toUpperCase(type.charAt(0)) + type.substring(1);
+        }
+    }
+
+    // @Override
+    // public String toModelImport(String name) {
+    //     if (name.equals("std::string")) {
+    //         return "#include <string>";
+    //     } else if (name.equals("std::list")) {
+    //         return "#include <list>";
+    //     } else if (name.equals("Map")) {
+    //         return "#include <map>";
+    //     }
+    //     return "#include \"" + name + ".h\"";
+    // }
+
 
   /**
    * Escapes a reserved word as defined in the `reservedWords` array. Handle escaping

@@ -1,5 +1,5 @@
 /*
- * Error.h
+ * ValidationErrorAllOf.h
  *
  * 
  */
@@ -20,9 +20,8 @@ namespace openapi {
  *
  */
 
-struct Error{
-    std::optional<int> code{};
-    std::optional<openapi::string_t> message;
+struct ValidationErrorAllOf{
+    std::optional<openapi::string_t> field;
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE
 };
 }

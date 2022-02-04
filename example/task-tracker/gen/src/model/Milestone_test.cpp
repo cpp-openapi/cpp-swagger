@@ -1,11 +1,11 @@
 #include "gtest/gtest.h"
 
-#include "{{classname}}.h"
+#include "Milestone.h"
 
-TEST({{classname}}, Deserialize)
+TEST(Milestone, Deserialize)
 {
     // TODO: generate test content
-    openapi::{{classname}} x;
+    openapi::Milestone x;
     Json j;
     x.FromJSON(j);
     x.ToJSON(j);

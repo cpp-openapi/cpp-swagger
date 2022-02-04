@@ -16,7 +16,7 @@ classname: TodosApi
 operationId: addOne
 
 # and parameters:
-body: std::shared_ptr&lt;Item&gt;
+body: Item
 
 
 # each operation has an `operationId`:
@@ -39,7 +39,7 @@ operationId: updateOne
 
 # and parameters:
 id: int
-body: std::shared_ptr&lt;Item&gt;
+body: Item
 
 
 # end of operations block

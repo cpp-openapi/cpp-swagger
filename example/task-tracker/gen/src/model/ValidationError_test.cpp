@@ -1,11 +1,11 @@
 #include "gtest/gtest.h"
 
-#include "{{classname}}.h"
+#include "ValidationError.h"
 
-TEST({{classname}}, Deserialize)
+TEST(ValidationError, Deserialize)
 {
     // TODO: generate test content
-    openapi::{{classname}} x;
+    openapi::ValidationError x;
     Json j;
     x.FromJSON(j);
     x.ToJSON(j);

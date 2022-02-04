@@ -1,11 +1,11 @@
 #include "gtest/gtest.h"
 
-#include "{{classname}}.h"
+#include "ACommentToCreate.h"
 
-TEST({{classname}}, Deserialize)
+TEST(ACommentToCreate, Deserialize)
 {
     // TODO: generate test content
-    openapi::{{classname}} x;
+    openapi::ACommentToCreate x;
     Json j;
     x.FromJSON(j);
     x.ToJSON(j);

@@ -1,5 +1,5 @@
 /*
- * Item.h
+ * TaskAllOfAttachments.h
  *
  * 
  */
@@ -20,10 +20,12 @@ namespace openapi {
  *
  */
 
-struct Item{
-    std::optional<int> id{};
+struct TaskAllOfAttachments{
+    std::optional<openapi::string_t> name;
     std::optional<openapi::string_t> description;
-    std::optional<bool> completed{};
+    std::optional<openapi::string_t> url;
+    std::optional<openapi::string_t> contentType;
+    std::optional<int> size{};
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE
 };
 }

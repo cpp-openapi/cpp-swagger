@@ -1,1 +1,4 @@
-add_subdirectory(todo-list/gen/src)
+add_subdirectory(todo-list)
+
+
+add_subdirectory(task-tracker)

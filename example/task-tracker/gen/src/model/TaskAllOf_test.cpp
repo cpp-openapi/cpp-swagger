@@ -1,11 +1,11 @@
 #include "gtest/gtest.h"
 
-#include "{{classname}}.h"
+#include "TaskAllOf.h"
 
-TEST({{classname}}, Deserialize)
+TEST(TaskAllOf, Deserialize)
 {
     // TODO: generate test content
-    openapi::{{classname}} x;
+    openapi::TaskAllOf x;
     Json j;
     x.FromJSON(j);
     x.ToJSON(j);
