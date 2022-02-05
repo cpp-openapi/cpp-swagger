@@ -19,7 +19,6 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct SomeCountersForThisMilestone{
     std::optional<int> open{};
     std::optional<int> closed{};

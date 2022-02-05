@@ -26,7 +26,6 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct Task{
     std::optional<int> id{};
     std::optional<openapi::string_t> title;
@@ -36,13 +35,13 @@ struct Task{
     std::optional<int> effort{};
     std::optional<int> karma{};
     std::optional<openapi::string_t> status;
-    std::optional<UserCard> assignedTo;
-    std::optional<openapi::string_t> reportedAt;
+    std::optional<UserCard> assigned_to;
+    std::optional<openapi::string_t> reported_at;
     // array
     std::vector<openapi::string_t> tags;
-    std::optional<openapi::string_t> lastUpdated;
-    std::optional<UserCard> reportedBy;
-    std::optional<UserCard> lastUpdatedBy;
+    std::optional<openapi::string_t> last_updated;
+    std::optional<UserCard> reported_by;
+    std::optional<UserCard> last_updated_by;
     // array
     std::vector<Comment> comments;
     // additional properties should be rendered as json. string for now.

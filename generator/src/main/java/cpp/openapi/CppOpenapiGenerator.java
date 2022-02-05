@@ -200,6 +200,7 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
     typeMapping.put("UUID", cpp_string_type);
     typeMapping.put("URI", cpp_string_type);
     typeMapping.put("Map", cpp_string_type); // hack. Skip additional properties case
+    typeMapping.put("Object", cpp_string_type); // hack. make inline object to string
   }
   
   @Override
@@ -211,29 +212,17 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
         typeName = typeMapping.get(typeName);
       }
 
-      String[] skipTypes = new String[]{"int", "openapi::string_t", "bool", "float"};
+      // TODO find where object is from
+      String[] skipTypes = new String[]{"int", "openapi::string_t", "bool", "float" , "Object"};
+
       if (Arrays.asList(skipTypes).contains(typeName)){
         return null;
       }
       if(typeName.equals("std::vector")){
         return "#include <vector>";
       }
-      
 
-      // if (name.equals("std::string")) {
-      //     return "#include <string>";
-      // } else if (name.equals("std::vector") || name.equals("set")) {
-      //     return "#include <vector>";
-      // } else if(name.equals("integer") || name.equals("number") 
-      // || name.contains("string") || name.equals("DateTime") || name.equals("Date") || name.equals("URI"))
-      // { // string does not need to be included
-      //   return null;
-      // }
-      // } else if (name.equals("Map")) {
-      //     return "#include <map>";
-      // }
       return "#include \"" + name + ".h\"";
-      // return "bad type " + name;      
   }
 
   @Override
@@ -282,6 +271,11 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
             // return Character.toUpperCase(type.charAt(0)) + type.substring(1);
         }
     }
+
+    // @Override
+    // public String toVarName(String name) {
+    //     return StringUtils.underscore(name);
+    // }
 
     // @Override
     // public String toModelImport(String name) {

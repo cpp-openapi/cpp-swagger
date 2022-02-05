@@ -19,11 +19,10 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct UserCard{
     std::optional<int> id{};
-    std::optional<openapi::string_t> screenName;
-    std::optional<int> availableKarma{};
+    std::optional<openapi::string_t> screen_name;
+    std::optional<int> available_karma{};
     std::optional<bool> admin{};
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE
 };

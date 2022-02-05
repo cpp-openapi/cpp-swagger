@@ -20,11 +20,10 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct Comment{
     std::optional<UserCard> user;
     std::optional<openapi::string_t> content;
-    std::optional<openapi::string_t> createdAt;
+    std::optional<openapi::string_t> created_at;
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE
 };
 }

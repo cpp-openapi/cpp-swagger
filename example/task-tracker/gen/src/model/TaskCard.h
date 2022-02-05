@@ -22,7 +22,6 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct TaskCard{
     std::optional<int> id{};
     std::optional<openapi::string_t> title;
@@ -32,8 +31,8 @@ struct TaskCard{
     std::optional<int> effort{};
     std::optional<int> karma{};
     std::optional<openapi::string_t> status;
-    std::optional<UserCard> assignedTo;
-    std::optional<openapi::string_t> reportedAt;
+    std::optional<UserCard> assigned_to;
+    std::optional<openapi::string_t> reported_at;
     // array
     std::vector<openapi::string_t> tags;
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE

@@ -14,10 +14,10 @@ using namespace openapi;
 void ValidationError::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->code)>(openapi::StringT(OPENAPI_LITERAL(code)), code);
-    j.AddMember<decltype(this->message)>(openapi::StringT(OPENAPI_LITERAL(message)), message);
-    j.AddMember<decltype(this->helpUrl)>(openapi::StringT(OPENAPI_LITERAL(helpUrl)), helpUrl);
-    j.AddMember<decltype(this->field)>(openapi::StringT(OPENAPI_LITERAL(field)), field);
+    j.AddMember<decltype(this->code)>(openapi::StringT(OPENAPI_LITERAL(code)), this->code);
+    j.AddMember<decltype(this->message)>(openapi::StringT(OPENAPI_LITERAL(message)), this->message);
+    j.AddMember<decltype(this->help_url)>(openapi::StringT(OPENAPI_LITERAL(helpUrl)), this->help_url);
+    j.AddMember<decltype(this->field)>(openapi::StringT(OPENAPI_LITERAL(field)), this->field);
 }
 
 void ValidationError::FromJSON(const Json & j)
@@ -35,8 +35,8 @@ void ValidationError::FromJSON(const Json & j)
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(helpUrl))))
     {
-        using V = remove_optional<decltype(this->helpUrl)>::type;
-        this->helpUrl = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(helpUrl)));
+        using V = remove_optional<decltype(this->help_url)>::type;
+        this->help_url = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(helpUrl)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(field))))
     {

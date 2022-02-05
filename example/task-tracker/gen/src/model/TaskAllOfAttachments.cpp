@@ -14,11 +14,11 @@ using namespace openapi;
 void TaskAllOfAttachments::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->name)>(openapi::StringT(OPENAPI_LITERAL(name)), name);
-    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), description);
-    j.AddMember<decltype(this->url)>(openapi::StringT(OPENAPI_LITERAL(url)), url);
-    j.AddMember<decltype(this->contentType)>(openapi::StringT(OPENAPI_LITERAL(contentType)), contentType);
-    j.AddMember<decltype(this->size)>(openapi::StringT(OPENAPI_LITERAL(size)), size);
+    j.AddMember<decltype(this->name)>(openapi::StringT(OPENAPI_LITERAL(name)), this->name);
+    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), this->description);
+    j.AddMember<decltype(this->url)>(openapi::StringT(OPENAPI_LITERAL(url)), this->url);
+    j.AddMember<decltype(this->content_type)>(openapi::StringT(OPENAPI_LITERAL(contentType)), this->content_type);
+    j.AddMember<decltype(this->size)>(openapi::StringT(OPENAPI_LITERAL(size)), this->size);
 }
 
 void TaskAllOfAttachments::FromJSON(const Json & j)
@@ -41,8 +41,8 @@ void TaskAllOfAttachments::FromJSON(const Json & j)
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(contentType))))
     {
-        using V = remove_optional<decltype(this->contentType)>::type;
-        this->contentType = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(contentType)));
+        using V = remove_optional<decltype(this->content_type)>::type;
+        this->content_type = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(contentType)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(size))))
     {

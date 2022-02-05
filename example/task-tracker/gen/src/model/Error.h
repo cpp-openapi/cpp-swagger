@@ -19,11 +19,10 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct Error{
     std::optional<int> code{};
     std::optional<openapi::string_t> message;
-    std::optional<openapi::string_t> helpUrl;
+    std::optional<openapi::string_t> help_url;
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE
 };
 }

@@ -14,17 +14,17 @@ using namespace openapi;
 void TaskCard::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->id)>(openapi::StringT(OPENAPI_LITERAL(id)), id);
-    j.AddMember<decltype(this->title)>(openapi::StringT(OPENAPI_LITERAL(title)), title);
-    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), description);
-    j.AddMember<decltype(this->milestone)>(openapi::StringT(OPENAPI_LITERAL(milestone)), milestone);
-    j.AddMember<decltype(this->severity)>(openapi::StringT(OPENAPI_LITERAL(severity)), severity);
-    j.AddMember<decltype(this->effort)>(openapi::StringT(OPENAPI_LITERAL(effort)), effort);
-    j.AddMember<decltype(this->karma)>(openapi::StringT(OPENAPI_LITERAL(karma)), karma);
-    j.AddMember<decltype(this->status)>(openapi::StringT(OPENAPI_LITERAL(status)), status);
-    j.AddMember<decltype(this->assignedTo)>(openapi::StringT(OPENAPI_LITERAL(assignedTo)), assignedTo);
-    j.AddMember<decltype(this->reportedAt)>(openapi::StringT(OPENAPI_LITERAL(reportedAt)), reportedAt);
-    j.AddMember<decltype(this->tags)>(openapi::StringT(OPENAPI_LITERAL(tags)), tags);
+    j.AddMember<decltype(this->id)>(openapi::StringT(OPENAPI_LITERAL(id)), this->id);
+    j.AddMember<decltype(this->title)>(openapi::StringT(OPENAPI_LITERAL(title)), this->title);
+    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), this->description);
+    j.AddMember<decltype(this->milestone)>(openapi::StringT(OPENAPI_LITERAL(milestone)), this->milestone);
+    j.AddMember<decltype(this->severity)>(openapi::StringT(OPENAPI_LITERAL(severity)), this->severity);
+    j.AddMember<decltype(this->effort)>(openapi::StringT(OPENAPI_LITERAL(effort)), this->effort);
+    j.AddMember<decltype(this->karma)>(openapi::StringT(OPENAPI_LITERAL(karma)), this->karma);
+    j.AddMember<decltype(this->status)>(openapi::StringT(OPENAPI_LITERAL(status)), this->status);
+    j.AddMember<decltype(this->assigned_to)>(openapi::StringT(OPENAPI_LITERAL(assignedTo)), this->assigned_to);
+    j.AddMember<decltype(this->reported_at)>(openapi::StringT(OPENAPI_LITERAL(reportedAt)), this->reported_at);
+    j.AddMember<decltype(this->tags)>(openapi::StringT(OPENAPI_LITERAL(tags)), this->tags);
 }
 
 void TaskCard::FromJSON(const Json & j)
@@ -72,13 +72,13 @@ void TaskCard::FromJSON(const Json & j)
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(assignedTo))))
     {
-        using V = remove_optional<decltype(this->assignedTo)>::type;
-        this->assignedTo = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(assignedTo)));
+        using V = remove_optional<decltype(this->assigned_to)>::type;
+        this->assigned_to = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(assignedTo)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(reportedAt))))
     {
-        using V = remove_optional<decltype(this->reportedAt)>::type;
-        this->reportedAt = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(reportedAt)));
+        using V = remove_optional<decltype(this->reported_at)>::type;
+        this->reported_at = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(reportedAt)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(tags))))
     {

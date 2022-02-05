@@ -20,11 +20,10 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct Milestone{
     std::optional<openapi::string_t> name;
     std::optional<openapi::string_t> description;
-    std::optional<openapi::string_t> dueDate;
+    std::optional<openapi::string_t> due_date;
     std::optional<SomeCountersForThisMilestone> stats;
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE
 };

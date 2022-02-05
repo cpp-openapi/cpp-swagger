@@ -14,8 +14,8 @@ using namespace openapi;
 void ACommentToCreate::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->userId)>(openapi::StringT(OPENAPI_LITERAL(userId)), userId);
-    j.AddMember<decltype(this->content)>(openapi::StringT(OPENAPI_LITERAL(content)), content);
+    j.AddMember<decltype(this->user_id)>(openapi::StringT(OPENAPI_LITERAL(userId)), this->user_id);
+    j.AddMember<decltype(this->content)>(openapi::StringT(OPENAPI_LITERAL(content)), this->content);
 }
 
 void ACommentToCreate::FromJSON(const Json & j)
@@ -23,8 +23,8 @@ void ACommentToCreate::FromJSON(const Json & j)
     // OPENAPI_FOR_EACH(OPENAPI_FROM_JSON_MEMBER, __VA_ARGS__)
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(userId))))
     {
-        using V = remove_optional<decltype(this->userId)>::type;
-        this->userId = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(userId)));
+        using V = remove_optional<decltype(this->user_id)>::type;
+        this->user_id = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(userId)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(content))))
     {

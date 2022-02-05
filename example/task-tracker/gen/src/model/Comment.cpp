@@ -14,9 +14,9 @@ using namespace openapi;
 void Comment::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->user)>(openapi::StringT(OPENAPI_LITERAL(user)), user);
-    j.AddMember<decltype(this->content)>(openapi::StringT(OPENAPI_LITERAL(content)), content);
-    j.AddMember<decltype(this->createdAt)>(openapi::StringT(OPENAPI_LITERAL(createdAt)), createdAt);
+    j.AddMember<decltype(this->user)>(openapi::StringT(OPENAPI_LITERAL(user)), this->user);
+    j.AddMember<decltype(this->content)>(openapi::StringT(OPENAPI_LITERAL(content)), this->content);
+    j.AddMember<decltype(this->created_at)>(openapi::StringT(OPENAPI_LITERAL(createdAt)), this->created_at);
 }
 
 void Comment::FromJSON(const Json & j)
@@ -34,8 +34,8 @@ void Comment::FromJSON(const Json & j)
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(createdAt))))
     {
-        using V = remove_optional<decltype(this->createdAt)>::type;
-        this->createdAt = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(createdAt)));
+        using V = remove_optional<decltype(this->created_at)>::type;
+        this->created_at = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(createdAt)));
     }
 }
 

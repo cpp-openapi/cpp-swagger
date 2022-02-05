@@ -23,11 +23,10 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct TaskAllOf{
-    std::optional<openapi::string_t> lastUpdated;
-    std::optional<UserCard> reportedBy;
-    std::optional<UserCard> lastUpdatedBy;
+    std::optional<openapi::string_t> last_updated;
+    std::optional<UserCard> reported_by;
+    std::optional<UserCard> last_updated_by;
     // array
     std::vector<Comment> comments;
     // additional properties should be rendered as json. string for now.

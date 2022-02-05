@@ -19,7 +19,6 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct Error{
     std::optional<int> code{};
     std::optional<openapi::string_t> message;

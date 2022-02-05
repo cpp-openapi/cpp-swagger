@@ -19,7 +19,6 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct Item{
     std::optional<int> id{};
     std::optional<openapi::string_t> description;

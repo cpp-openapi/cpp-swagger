@@ -14,9 +14,9 @@ using namespace openapi;
 void Item::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->id)>(openapi::StringT(OPENAPI_LITERAL(id)), id);
-    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), description);
-    j.AddMember<decltype(this->completed)>(openapi::StringT(OPENAPI_LITERAL(completed)), completed);
+    j.AddMember<decltype(this->id)>(openapi::StringT(OPENAPI_LITERAL(id)), this->id);
+    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), this->description);
+    j.AddMember<decltype(this->completed)>(openapi::StringT(OPENAPI_LITERAL(completed)), this->completed);
 }
 
 void Item::FromJSON(const Json & j)

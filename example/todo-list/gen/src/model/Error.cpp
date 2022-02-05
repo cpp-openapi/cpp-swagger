@@ -14,8 +14,8 @@ using namespace openapi;
 void Error::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->code)>(openapi::StringT(OPENAPI_LITERAL(code)), code);
-    j.AddMember<decltype(this->message)>(openapi::StringT(OPENAPI_LITERAL(message)), message);
+    j.AddMember<decltype(this->code)>(openapi::StringT(OPENAPI_LITERAL(code)), this->code);
+    j.AddMember<decltype(this->message)>(openapi::StringT(OPENAPI_LITERAL(message)), this->message);
 }
 
 void Error::FromJSON(const Json & j)

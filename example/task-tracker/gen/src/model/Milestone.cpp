@@ -14,10 +14,10 @@ using namespace openapi;
 void Milestone::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->name)>(openapi::StringT(OPENAPI_LITERAL(name)), name);
-    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), description);
-    j.AddMember<decltype(this->dueDate)>(openapi::StringT(OPENAPI_LITERAL(dueDate)), dueDate);
-    j.AddMember<decltype(this->stats)>(openapi::StringT(OPENAPI_LITERAL(stats)), stats);
+    j.AddMember<decltype(this->name)>(openapi::StringT(OPENAPI_LITERAL(name)), this->name);
+    j.AddMember<decltype(this->description)>(openapi::StringT(OPENAPI_LITERAL(description)), this->description);
+    j.AddMember<decltype(this->due_date)>(openapi::StringT(OPENAPI_LITERAL(dueDate)), this->due_date);
+    j.AddMember<decltype(this->stats)>(openapi::StringT(OPENAPI_LITERAL(stats)), this->stats);
 }
 
 void Milestone::FromJSON(const Json & j)
@@ -35,8 +35,8 @@ void Milestone::FromJSON(const Json & j)
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(dueDate))))
     {
-        using V = remove_optional<decltype(this->dueDate)>::type;
-        this->dueDate = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(dueDate)));
+        using V = remove_optional<decltype(this->due_date)>::type;
+        this->due_date = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(dueDate)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(stats))))
     {

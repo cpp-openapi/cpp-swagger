@@ -22,25 +22,26 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
+{{! struct field is snake case and type is camelcase to avoid clashes }}
 struct {{classname}}{
     {{#vars}}
     {{^isContainer}}
     {{#isPrimitiveType}}
-    std::optional<{{dataType}}> {{name}}{};
+    std::optional<{{dataType}}> {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{};
     {{/isPrimitiveType}}
     {{^isPrimitiveType}}
-    std::optional<{{dataType}}> {{name}};
+    std::optional<{{dataType}}> {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
     {{/isPrimitiveType}}
     {{/isContainer}}
     {{#isContainer}}
         {{#isMap}}
     // additional properties should be rendered as json. string for now.
-    {{dataType}} {{name}};
+    {{dataType}} {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
         {{/isMap}}
         {{^isMap}}
     // array
-    {{dataType}}<{{#items}}{{dataType}}{{/items}}> {{name}};
+    {{! if array is of another array of type, then it is not supported and string is rendered }}
+    {{dataType}}<{{#items}}{{^isContainer}}{{dataType}}{{/isContainer}}{{#isContainer}}openapi::string_t{{/isContainer}}{{/items}}> {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
         {{/isMap}}
     {{/isContainer}}
 	{{/vars}}

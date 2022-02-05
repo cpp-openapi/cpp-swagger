@@ -14,7 +14,7 @@ using namespace openapi;
 void ValidationErrorAllOf::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->field)>(openapi::StringT(OPENAPI_LITERAL(field)), field);
+    j.AddMember<decltype(this->field)>(openapi::StringT(OPENAPI_LITERAL(field)), this->field);
 }
 
 void ValidationErrorAllOf::FromJSON(const Json & j)

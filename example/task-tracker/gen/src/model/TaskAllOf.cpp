@@ -14,11 +14,11 @@ using namespace openapi;
 void TaskAllOf::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->lastUpdated)>(openapi::StringT(OPENAPI_LITERAL(lastUpdated)), lastUpdated);
-    j.AddMember<decltype(this->reportedBy)>(openapi::StringT(OPENAPI_LITERAL(reportedBy)), reportedBy);
-    j.AddMember<decltype(this->lastUpdatedBy)>(openapi::StringT(OPENAPI_LITERAL(lastUpdatedBy)), lastUpdatedBy);
-    j.AddMember<decltype(this->comments)>(openapi::StringT(OPENAPI_LITERAL(comments)), comments);
-    j.AddMember<decltype(this->attachments)>(openapi::StringT(OPENAPI_LITERAL(attachments)), attachments);
+    j.AddMember<decltype(this->last_updated)>(openapi::StringT(OPENAPI_LITERAL(lastUpdated)), this->last_updated);
+    j.AddMember<decltype(this->reported_by)>(openapi::StringT(OPENAPI_LITERAL(reportedBy)), this->reported_by);
+    j.AddMember<decltype(this->last_updated_by)>(openapi::StringT(OPENAPI_LITERAL(lastUpdatedBy)), this->last_updated_by);
+    j.AddMember<decltype(this->comments)>(openapi::StringT(OPENAPI_LITERAL(comments)), this->comments);
+    j.AddMember<decltype(this->attachments)>(openapi::StringT(OPENAPI_LITERAL(attachments)), this->attachments);
 }
 
 void TaskAllOf::FromJSON(const Json & j)
@@ -26,18 +26,18 @@ void TaskAllOf::FromJSON(const Json & j)
     // OPENAPI_FOR_EACH(OPENAPI_FROM_JSON_MEMBER, __VA_ARGS__)
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(lastUpdated))))
     {
-        using V = remove_optional<decltype(this->lastUpdated)>::type;
-        this->lastUpdated = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(lastUpdated)));
+        using V = remove_optional<decltype(this->last_updated)>::type;
+        this->last_updated = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(lastUpdated)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(reportedBy))))
     {
-        using V = remove_optional<decltype(this->reportedBy)>::type;
-        this->reportedBy = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(reportedBy)));
+        using V = remove_optional<decltype(this->reported_by)>::type;
+        this->reported_by = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(reportedBy)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(lastUpdatedBy))))
     {
-        using V = remove_optional<decltype(this->lastUpdatedBy)>::type;
-        this->lastUpdatedBy = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(lastUpdatedBy)));
+        using V = remove_optional<decltype(this->last_updated_by)>::type;
+        this->last_updated_by = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(lastUpdatedBy)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(comments))))
     {

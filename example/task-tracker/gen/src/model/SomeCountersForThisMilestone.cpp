@@ -14,9 +14,9 @@ using namespace openapi;
 void SomeCountersForThisMilestone::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->open)>(openapi::StringT(OPENAPI_LITERAL(open)), open);
-    j.AddMember<decltype(this->closed)>(openapi::StringT(OPENAPI_LITERAL(closed)), closed);
-    j.AddMember<decltype(this->total)>(openapi::StringT(OPENAPI_LITERAL(total)), total);
+    j.AddMember<decltype(this->open)>(openapi::StringT(OPENAPI_LITERAL(open)), this->open);
+    j.AddMember<decltype(this->closed)>(openapi::StringT(OPENAPI_LITERAL(closed)), this->closed);
+    j.AddMember<decltype(this->total)>(openapi::StringT(OPENAPI_LITERAL(total)), this->total);
 }
 
 void SomeCountersForThisMilestone::FromJSON(const Json & j)

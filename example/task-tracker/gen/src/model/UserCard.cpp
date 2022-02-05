@@ -14,10 +14,10 @@ using namespace openapi;
 void UserCard::ToJSON(Json & j) const
 {
     // OPENAPI_FOR_EACH(OPENAPI_TO_JSON_MEMBER, __VA_ARGS__)
-    j.AddMember<decltype(this->id)>(openapi::StringT(OPENAPI_LITERAL(id)), id);
-    j.AddMember<decltype(this->screenName)>(openapi::StringT(OPENAPI_LITERAL(screenName)), screenName);
-    j.AddMember<decltype(this->availableKarma)>(openapi::StringT(OPENAPI_LITERAL(availableKarma)), availableKarma);
-    j.AddMember<decltype(this->admin)>(openapi::StringT(OPENAPI_LITERAL(admin)), admin);
+    j.AddMember<decltype(this->id)>(openapi::StringT(OPENAPI_LITERAL(id)), this->id);
+    j.AddMember<decltype(this->screen_name)>(openapi::StringT(OPENAPI_LITERAL(screenName)), this->screen_name);
+    j.AddMember<decltype(this->available_karma)>(openapi::StringT(OPENAPI_LITERAL(availableKarma)), this->available_karma);
+    j.AddMember<decltype(this->admin)>(openapi::StringT(OPENAPI_LITERAL(admin)), this->admin);
 }
 
 void UserCard::FromJSON(const Json & j)
@@ -30,13 +30,13 @@ void UserCard::FromJSON(const Json & j)
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(screenName))))
     {
-        using V = remove_optional<decltype(this->screenName)>::type;
-        this->screenName = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(screenName)));
+        using V = remove_optional<decltype(this->screen_name)>::type;
+        this->screen_name = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(screenName)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(availableKarma))))
     {
-        using V = remove_optional<decltype(this->availableKarma)>::type;
-        this->availableKarma = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(availableKarma)));
+        using V = remove_optional<decltype(this->available_karma)>::type;
+        this->available_karma = j.GetMember<V>(openapi::StringT(OPENAPI_LITERAL(availableKarma)));
     }
     if(j.HasKey(openapi::StringT(OPENAPI_LITERAL(admin))))
     {

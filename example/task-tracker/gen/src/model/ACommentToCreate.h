@@ -19,9 +19,8 @@ namespace openapi {
  *  \ingroup Models
  *
  */
-
 struct ACommentToCreate{
-    std::optional<int> userId{};
+    std::optional<int> user_id{};
     std::optional<openapi::string_t> content;
     OPENAPI_JSON_CONVERT_FUNCS_DECLARE
 };
