@@ -93,6 +93,23 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
      */
     modelPackage = "model";
     
+    String commonPkg = "common";
+
+    // common header
+    supportingFiles.add(new SupportingFile("common/json_h.mustache",   
+      sourceFolder + File.separator + commonPkg,              
+      "common_json.h")
+    );
+    supportingFiles.add(new SupportingFile("common/common_cpp.mustache",   
+      sourceFolder + File.separator + commonPkg,              
+      "common.cpp")
+    );
+
+    supportingFiles.add(new SupportingFile("common/cmake.mustache",   // the input template or file
+      sourceFolder + File.separator + commonPkg,              // the destination folder, relative `outputFolder`
+      "CMakeLists.txt")                                          // the output file
+    );
+
     /**
      * Models.  You can write model files using the modelTemplateFiles map.
      * if you want to create one template for file, you can do so here.
@@ -100,25 +117,19 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
      * a different extension
      */
     modelTemplateFiles.put(
-      "model_h.mustache", // the template to use
+      "model/model_h.mustache", // the template to use
       ".h");       // the extension for each file to write
 
     modelTemplateFiles.put(
-      "model_cpp.mustache", // the template to use
+      "model/model_cpp.mustache", // the template to use
       ".cpp");       // the extension for each file to write
 
     modelTemplateFiles.put(
-      "model_test_cpp.mustache", // the template to use
+      "model/model_test_cpp.mustache", // the template to use
       "_test.cpp");       // the extension for each file to write
 
-    // model common header
-    supportingFiles.add(new SupportingFile("model_common.mustache",   // the input template or file
-      sourceFolder + File.separator + modelPackage,              // the destination folder, relative `outputFolder`
-      "model_common.h")                                          // the output file
-    );
-
     // model cmake file
-    supportingFiles.add(new SupportingFile("model_cmake_txt.mustache",   // the input template or file
+    supportingFiles.add(new SupportingFile("model/model_cmake_txt.mustache",   // the input template or file
       sourceFolder + File.separator + modelPackage,              // the destination folder, relative `outputFolder`
       "CMakeLists.txt")                                          // the output file
     );
@@ -135,8 +146,20 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
      * class
      */
     apiTemplateFiles.put(
-      "api.mustache",   // the template to use
+      "api/api.mustache",   // the template to use
       ".sample");       // the extension for each file to write
+    // one openapi spec tag will be turn in to one file
+    // all operations inside will be accessable here
+    apiTemplateFiles.put(
+      "api/tag_h.mustache",   // the template to use
+      ".h");       // the extension for each file to write
+    apiTemplateFiles.put(
+      "api/tag_cpp.mustache",   // the template to use
+      ".cpp");       // the extension for each file to write 
+    supportingFiles.add(new SupportingFile("api/cmake.mustache", 
+      sourceFolder + File.separator + apiPackage, 
+      "CMakeLists.txt")
+    );
 
     /**
      * Reserved words.  Override this with reserved words specific to your language

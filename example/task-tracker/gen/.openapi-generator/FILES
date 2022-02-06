@@ -1,6 +1,12 @@
 myFile.sample
 src/CMakeLists.txt
+src/api/CMakeLists.txt
+src/api/TasksApi.cpp
+src/api/TasksApi.h
 src/api/TasksApi.sample
+src/common/CMakeLists.txt
+src/common/common.cpp
+src/common/common_json.h
 src/model/ACommentToCreate.cpp
 src/model/ACommentToCreate.h
 src/model/ACommentToCreate_test.cpp
@@ -38,4 +44,3 @@ src/model/ValidationErrorAllOf.cpp
 src/model/ValidationErrorAllOf.h
 src/model/ValidationErrorAllOf_test.cpp
 src/model/ValidationError_test.cpp
-src/model/model_common.h

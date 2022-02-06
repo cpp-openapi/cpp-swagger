@@ -4,4 +4,6 @@ openapi_generate(
     OUTDIR "${CMAKE_CURRENT_SOURCE_DIR}/gen"
 )
 
-add_subdirectory(gen/src)
+if(CPP_SWAGGER_AddExamplesSubDir)
+    add_subdirectory(gen/src)
+endif()

@@ -1,0 +1,73 @@
+#pragma once
+#include <optional>
+#include "openapi/runtime/client.h"
+#include "openapi/runtime/request.h"
+#include "openapi/runtime/response.h"
+#include "openapi/runtime/auth.h"
+{{#imports}}
+{{{import}}}
+{{/imports}}
+
+namespace openapi {
+
+{{#operations}}
+
+// class name {{classname}}
+
+{{#operation}}
+
+struct {{operationId}}Params {
+    static std::string const ContentType;
+    static std::string const PathPattern;
+    static std::string const Method;
+{{#allParams}}
+    {{#isContainer}}
+    std::optional<{{dataType}}<{{baseType}}>> {{paramName}};
+    {{/isContainer}}
+    {{^isContainer}}
+    std::optional<{{dataType}}> {{paramName}};
+    {{/isContainer}}
+{{/allParams}}
+    void WriteParams(std::shared_ptr<IOASClientRequest> req) const;
+};
+
+struct {{operationId}}Response {
+{{#returnType}}
+    {{#returnContainer}}
+        {{#isArray}}
+    std::optional<{{returnType}}<{{returnBaseType}}>> payload;
+        {{/isArray}}
+        {{#isMap}}
+            // TODO: map is not supported
+        {{/isMap}}
+    {{/returnContainer}}
+    {{^returnContainer}}
+    std::optional<{{returnType}}> payload;
+    {{/returnContainer}}
+{{/returnType}}
+{{^returnType}}
+    // no return type
+{{/returnType}}
+    int code;
+    void ReadResponse(std::shared_ptr<IOASClientResponse> resp);
+    friend std::ostream& operator<<(std::ostream& os, const {{operationId}}Response& resp);
+};
+
+std::ostream& operator<<(std::ostream& os, const {{operationId}}Response& resp);
+{{/operation}}
+
+class {{classname}}Service{
+public:
+    {{classname}}Service(std::shared_ptr<IClient> cli):_cli(cli) {};
+    void SetDefaultAuth(AuthInfoWriter auth);
+    {{#operation}}
+    {{operationId}}Response {{operationId}}({{operationId}}Params params);
+    {{/operation}}
+
+private:
+    std::shared_ptr<IClient> _cli;
+    AuthInfoWriter _auth = nullptr;
+};
+{{/operations}}
+
+} // namespace openapi

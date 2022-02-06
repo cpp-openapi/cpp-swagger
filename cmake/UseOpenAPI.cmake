@@ -80,7 +80,7 @@ endif()
 
 file(GLOB GENERATOR_SOURCES
     ${cpp-swagger_SOURCE_DIR}/generator/src/main/java/cpp/openapi/*.java
-    ${cpp-swagger_SOURCE_DIR}/generator/src/main/resources/cpp-openapi/*.mustache
+    ${cpp-swagger_SOURCE_DIR}/generator/src/main/resources/cpp-openapi/**/*.mustache
 )
 
 add_custom_command(

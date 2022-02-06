@@ -1,6 +1,12 @@
 myFile.sample
 src/CMakeLists.txt
+src/api/CMakeLists.txt
+src/api/TodosApi.cpp
+src/api/TodosApi.h
 src/api/TodosApi.sample
+src/common/CMakeLists.txt
+src/common/common.cpp
+src/common/common_json.h
 src/model/CMakeLists.txt
 src/model/Error.cpp
 src/model/Error.h
@@ -8,4 +14,3 @@ src/model/Error_test.cpp
 src/model/Item.cpp
 src/model/Item.h
 src/model/Item_test.cpp
-src/model/model_common.h

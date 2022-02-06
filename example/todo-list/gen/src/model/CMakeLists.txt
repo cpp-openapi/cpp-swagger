@@ -15,18 +15,8 @@ target_include_directories(a_To_Do_list_application_model
 )
 
 target_link_libraries(a_To_Do_list_application_model
-    PUBLIC openapi_json openapi_nlohmann_json openapi_runtime
+    PUBLIC a_To_Do_list_application_common
 )
-
-target_compile_definitions(
-    a_To_Do_list_application_model PUBLIC ${OPENAPI_JSON}=1
-)
-
-# once link to runtime this can be removed
-if(OPENAPI_UTF16_STRINGS)
-    target_compile_definitions(a_To_Do_list_application_model PUBLIC OPENAPI_UTF16_STRINGS=1)
-    message(STATUS "generated model uses OPENAPI_UTF16_STRINGS=1")
-endif()
 
 # testing
 file(GLOB TEST_SOURCES

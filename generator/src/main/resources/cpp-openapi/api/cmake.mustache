@@ -1,0 +1,16 @@
+file(GLOB SOURCES
+    *.h
+    *.cpp
+)
+
+add_library({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_api
+    STATIC ${SOURCES}
+)
+
+target_include_directories({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_api
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries({{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_api
+    PUBLIC {{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_common {{#lambda.camelcase}}{{appName}}{{/lambda.camelcase}}_model
+)

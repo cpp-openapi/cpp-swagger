@@ -33,4 +33,6 @@ message(STATUS "Fetching googletest")
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
+add_subdirectory(common)
 add_subdirectory(model)
+add_subdirectory(api)
