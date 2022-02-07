@@ -28,7 +28,7 @@ void {{operationId}}Params::WriteParams(std::shared_ptr<IOASClientRequest> req) 
         req->SetQueryParam<V>("{{paramName}}", this->{{paramName}}.value());
         {{/isQueryParam}}
         {{#isBodyParam}}
-        req->SetBodyParam(openapi::ToStdString(Json::Serialize(this->body)));
+        req->SetBodyParam(openapi::ToStdString(Json::Serialize(this->{{paramName}})));
         {{/isBodyParam}}
     }
 {{/allParams}}

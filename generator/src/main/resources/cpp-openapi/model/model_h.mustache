@@ -7,7 +7,6 @@
 #pragma once
 
 {{/model}}{{/models}}
-#include <string>
 #include <optional>
 #include "common_json.h"
 {{#imports}}
@@ -27,21 +26,21 @@ struct {{classname}}{
     {{#vars}}
     {{^isContainer}}
     {{#isPrimitiveType}}
-    std::optional<{{dataType}}> {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{};
+    std::optional<{{dataType}}> {{name}}{};
     {{/isPrimitiveType}}
     {{^isPrimitiveType}}
-    std::optional<{{dataType}}> {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
+    std::optional<{{dataType}}> {{name}};
     {{/isPrimitiveType}}
     {{/isContainer}}
     {{#isContainer}}
         {{#isMap}}
     // additional properties should be rendered as json. string for now.
-    {{dataType}} {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
+    {{dataType}} {{name}};
         {{/isMap}}
         {{^isMap}}
     // array
     {{! if array is of another array of type, then it is not supported and string is rendered }}
-    {{dataType}}<{{#items}}{{^isContainer}}{{dataType}}{{/isContainer}}{{#isContainer}}openapi::string_t{{/isContainer}}{{/items}}> {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
+    {{dataType}}<{{#items}}{{^isContainer}}{{dataType}}{{/isContainer}}{{#isContainer}}openapi::string_t{{/isContainer}}{{/items}}> {{name}};
         {{/isMap}}
     {{/isContainer}}
 	{{/vars}}

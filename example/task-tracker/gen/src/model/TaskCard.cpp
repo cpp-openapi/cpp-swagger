@@ -8,7 +8,7 @@
 
 using namespace openapi;
 
-// macro should do the same job
+// macro should do the same job. Not really
 // OPENAP_JSON_CONVERT_FUNCS(TaskCard, id, title, description, milestone, severity, effort, karma, status, assignedTo, reportedAt, tags)
 
 void TaskCard::ToJSON(Json & j) const

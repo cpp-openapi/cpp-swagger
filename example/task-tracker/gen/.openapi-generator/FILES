@@ -3,7 +3,6 @@ src/CMakeLists.txt
 src/api/CMakeLists.txt
 src/api/TasksApi.cpp
 src/api/TasksApi.h
-src/api/TasksApi.sample
 src/common/CMakeLists.txt
 src/common/common.cpp
 src/common/common_json.h

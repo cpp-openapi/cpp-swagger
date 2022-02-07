@@ -24,7 +24,7 @@ struct addCommentToTaskParams {
     static std::string const PathPattern;
     static std::string const Method;
     std::optional<int> id;
-    std::optional<ACommentToCreate> body;
+    std::optional<std::shared_ptr<ACommentToCreate>> body;
     void WriteParams(std::shared_ptr<IOASClientRequest> req) const;
 };
 
@@ -41,7 +41,7 @@ struct createTaskParams {
     static std::string const ContentType;
     static std::string const PathPattern;
     static std::string const Method;
-    std::optional<Task> body;
+    std::optional<std::shared_ptr<Task>> body;
     void WriteParams(std::shared_ptr<IOASClientRequest> req) const;
 };
 
@@ -132,7 +132,7 @@ struct updateTaskParams {
     static std::string const PathPattern;
     static std::string const Method;
     std::optional<int> id;
-    std::optional<Task> body;
+    std::optional<std::shared_ptr<Task>> body;
     void WriteParams(std::shared_ptr<IOASClientRequest> req) const;
 };
 

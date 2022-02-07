@@ -17,7 +17,7 @@ struct addOneParams {
     static std::string const ContentType;
     static std::string const PathPattern;
     static std::string const Method;
-    std::optional<Item> body;
+    std::optional<std::shared_ptr<Item>> body;
     void WriteParams(std::shared_ptr<IOASClientRequest> req) const;
 };
 
@@ -70,7 +70,7 @@ struct updateOneParams {
     static std::string const PathPattern;
     static std::string const Method;
     std::optional<int> id;
-    std::optional<Item> body;
+    std::optional<std::shared_ptr<Item>> body;
     void WriteParams(std::shared_ptr<IOASClientRequest> req) const;
 };
 

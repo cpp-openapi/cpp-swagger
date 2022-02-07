@@ -3,7 +3,6 @@ src/CMakeLists.txt
 src/api/CMakeLists.txt
 src/api/TodosApi.cpp
 src/api/TodosApi.h
-src/api/TodosApi.sample
 src/common/CMakeLists.txt
 src/common/common.cpp
 src/common/common_json.h

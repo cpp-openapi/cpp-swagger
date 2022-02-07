@@ -36,7 +36,10 @@ int main()
 
         {
             addOneParams p;
-            p.body = Item{0, openapi::StringT("hello")};
+            p.body = std::make_shared<Item>();
+            p.body.value()->id = 0;
+            p.body.value()->description = openapi::StringT("hello");
+            p.body.value()->completed = true;
             addOneResponse r = ts.addOne(p);
             std::cout << "Add one: " << r << std::endl;
         }

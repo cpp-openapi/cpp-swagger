@@ -2,7 +2,9 @@ package cpp.openapi;
 
 import org.openapitools.codegen.*;
 import io.swagger.models.properties.*;
-// import org.openapitools.codegen.languages.AbstractCppCodegen;
+import org.openapitools.codegen.languages.AbstractCppCodegen;
+import org.openapitools.codegen.meta.features.*;
+
 import io.swagger.v3.oas.models.media.Schema;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.openapitools.codegen.utils.StringUtils;
@@ -10,7 +12,7 @@ import org.openapitools.codegen.utils.StringUtils;
 import java.util.*;
 import java.io.File;
 
-public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig {
+public class CppOpenapiGenerator extends CppModifiedBaseGenerator implements CodegenConfig {
 
   // source folder where to write the files
   protected String sourceFolder = "src";
@@ -39,27 +41,27 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
   /**
    * Provides an opportunity to inspect and modify operation data before the code is generated.
    */
-  @SuppressWarnings("unchecked")
-  @Override
-  public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+  // @SuppressWarnings("unchecked")
+  // @Override
+  // public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
 
-    // to try debugging your code generator:
-    // set a break point on the next line.
-    // then debug the JUnit test called LaunchGeneratorInDebugger
+  //   // to try debugging your code generator:
+  //   // set a break point on the next line.
+  //   // then debug the JUnit test called LaunchGeneratorInDebugger
 
-    Map<String, Object> results = super.postProcessOperationsWithModels(objs, allModels);
+  //   Map<String, Object> results = super.postProcessOperationsWithModels(objs, allModels);
 
-    Map<String, Object> ops = (Map<String, Object>)results.get("operations");
-    ArrayList<CodegenOperation> opList = (ArrayList<CodegenOperation>)ops.get("operation");
+  //   Map<String, Object> ops = (Map<String, Object>)results.get("operations");
+  //   ArrayList<CodegenOperation> opList = (ArrayList<CodegenOperation>)ops.get("operation");
 
-    // iterate over the operation and perhaps modify something
-    for(CodegenOperation co : opList){
-      // example:
-      // co.httpMethod = co.httpMethod.toLowerCase();
-    }
+  //   // iterate over the operation and perhaps modify something
+  //   for(CodegenOperation co : opList){
+  //     // example:
+  //     // co.httpMethod = co.httpMethod.toLowerCase();
+  //   }
 
-    return results;
-  }
+  //   return results;
+  // }
 
   /**
    * Returns human-friendly help for the generator.  Provide the consumer with help
@@ -73,6 +75,41 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
 
   public CppOpenapiGenerator() {
     super();
+
+    // features
+    modifyFeatureSet(feature -> feature
+      .excludeGlobalFeatures(
+              GlobalFeature.XMLStructureDefinitions,
+              GlobalFeature.Callbacks,
+              GlobalFeature.LinkObjects,
+              GlobalFeature.ParameterStyling,
+              GlobalFeature.MultiServer)
+      .excludeSchemaSupportFeatures(
+              SchemaSupportFeature.Polymorphism
+      )
+      .excludeParameterFeatures(
+              ParameterFeature.Cookie,
+              ParameterFeature.Header,
+              ParameterFeature.FormUnencoded,
+              ParameterFeature.FormMultipart,
+              ParameterFeature.Query
+      )
+      .excludeDataTypeFeatures(
+              DataTypeFeature.Enum,
+              DataTypeFeature.Maps,
+              DataTypeFeature.MapOfCollectionOfEnum,
+              DataTypeFeature.MapOfCollectionOfModel,
+              DataTypeFeature.MapOfCollectionOfPrimitives,
+              DataTypeFeature.MapOfEnum,
+              DataTypeFeature.MapOfModel
+
+      )
+      .excludeWireFormatFeatures(
+              WireFormatFeature.XML,
+              WireFormatFeature.PROTOBUF,
+              WireFormatFeature.Custom
+      ));
+
 
     // set the output folder here
     outputFolder = "generated-code/cpp-openapi";
@@ -145,9 +182,6 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
      * as with models, add multiple entries with different extensions for multiple files per
      * class
      */
-    apiTemplateFiles.put(
-      "api/api.mustache",   // the template to use
-      ".sample");       // the extension for each file to write
     // one openapi spec tag will be turn in to one file
     // all operations inside will be accessable here
     apiTemplateFiles.put(
@@ -295,10 +329,16 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
         }
     }
 
+    // cpp code gen mess up the casing?
     // @Override
-    // public String toVarName(String name) {
-    //     return StringUtils.underscore(name);
+    // public String getTypeDeclaration(String name) {
+    //     return name;
     // }
+
+    @Override
+    public String toVarName(String name) {
+        return StringUtils.underscore(super.toVarName(name));
+    }
 
     // @Override
     // public String toModelImport(String name) {
@@ -312,6 +352,12 @@ public class CppOpenapiGenerator extends DefaultCodegen implements CodegenConfig
     //     return "#include \"" + name + ".h\"";
     // }
 
+    // @SuppressWarnings("rawtypes")
+    // @Override
+    // public CodegenProperty fromProperty(String name, Schema p) {
+    //   // cpp abstract class has bug    TODO:
+    //   return super.fromProperty(name, p);
+    // }
 
   /**
    * Escapes a reserved word as defined in the `reservedWords` array. Handle escaping

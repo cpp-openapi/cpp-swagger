@@ -39,7 +39,7 @@ if(CPP_SWAGGER_BuildExamples)
     add_dependencies(build-all-ci generate-task-tracker-example generate-todo-list-example)
 endif()
 
-# add_subdirectory(example/todo-list/gen/src)
-# add_subdirectory(example/todo-list/main)
+#add_subdirectory(example/todo-list/gen/src)
+#add_subdirectory(example/todo-list/main)
 
 # add_subdirectory(example/task-tracker/gen/src)
