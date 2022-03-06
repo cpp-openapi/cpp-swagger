@@ -37,10 +37,11 @@ if(CPP_SWAGGER_BuildExamples)
     # generate all for CI
     add_custom_target(build-all-ci)
     add_dependencies(build-all-ci generate-task-tracker-example generate-todo-list-example)
+
+    # build generated code
+    add_subdirectory(example/todo-list/gen/src)
+    add_subdirectory(example/todo-list/main)
+    add_subdirectory(example/todo-list/server)
+
+    add_subdirectory(example/task-tracker/gen/src)
 endif()
-
-add_subdirectory(example/todo-list/gen/src)
-add_subdirectory(example/todo-list/main)
-add_subdirectory(example/todo-list/server)
-
-add_subdirectory(example/task-tracker/gen/src)
