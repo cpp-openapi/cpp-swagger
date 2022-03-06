@@ -195,6 +195,26 @@ public class CppOpenapiGenerator extends CppModifiedBaseGenerator implements Cod
       "CMakeLists.txt")
     );
 
+    // server templates
+    apiTemplateFiles.put(
+      "apiServer/http_handler_h.mustache",
+      ".h");
+    apiTemplateFiles.put(
+      "apiServer/http_handler_cpp.mustache",
+      ".cpp");
+    supportingFiles.add(new SupportingFile("apiServer/server_handler_h.mustache", 
+      sourceFolder + File.separator + "apiServer", 
+      "server_handler.h")
+    );
+    supportingFiles.add(new SupportingFile("apiServer/server_handler_cpp.mustache", 
+      sourceFolder + File.separator + "apiServer", 
+      "server_handler.cpp")
+    );
+    supportingFiles.add(new SupportingFile("apiServer/cmake.mustache", 
+      sourceFolder + File.separator + "apiServer", 
+      "CMakeLists.txt")
+    );
+    
     /**
      * Reserved words.  Override this with reserved words specific to your language
      */
@@ -258,6 +278,17 @@ public class CppOpenapiGenerator extends CppModifiedBaseGenerator implements Cod
     typeMapping.put("URI", cpp_string_type);
     typeMapping.put("Map", cpp_string_type); // hack. Skip additional properties case
     typeMapping.put("Object", cpp_string_type); // hack. make inline object to string
+  }
+
+  @Override
+  public String apiFilename(String templateName, String tag) {
+    String suffix = apiTemplateFiles().get(templateName);
+    // server api
+    if (templateName.contains("apiServer")){
+      return outputFolder + "/" + sourceFolder + "/" + "apiServer" + File.separator + toApiFilename(tag) + suffix;
+    }
+    // client api
+    return apiFileFolder() + File.separator + toApiFilename(tag) + suffix;
   }
   
   @Override

@@ -1,0 +1,53 @@
+#pragma once
+
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+#include "{{classname}}.h"
+
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
+
+#include <memory>
+#include <functional>
+
+
+namespace openapi{
+
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+
+// user needs to override this
+class ServerHandler
+{
+public:
+{{#operation}}
+    virtual {{operationId}}Response {{operationId}}HandleFunc({{operationId}}Params params);
+{{/operation}}
+};
+
+
+{{/operations}}
+
+class Server
+{
+public:
+    // passs in user implemented handler
+    Server(std::shared_ptr<ServerHandler> handler);
+    // inside this convert req to params
+    // read from req and fill resp
+    // TODO: refactor for main
+    //void HandleHttp(IOASClientRequest & req, IOASClientResponse &resp);
+
+    bool GetHandlerFunc(std::string const & method, std::string const & path, PathParamValue &paramsRet, std::function<void(IOASClientRequest &, IOASClientResponse &)> & ret);
+
+    std::shared_ptr<ServerHandler> handler_;
+    Router<std::function<void(IOASClientRequest &, IOASClientResponse &)>> router_;
+};
+
+{{/apis}}
+{{/apiInfo}}
+
+}// namespace openapi

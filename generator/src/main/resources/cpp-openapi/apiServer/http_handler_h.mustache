@@ -1,0 +1,59 @@
+#pragma once
+
+{{#imports}}
+{{{import}}}
+{{/imports}}
+
+#include <functional>
+#include "openapi/runtime/router.h"
+
+
+namespace openapi {
+
+{{#operations}}
+
+{{#operation}}
+
+// class name {{classname}}
+struct {{operationId}}Params {
+{{#allParams}}
+    {{#isContainer}}
+    std::optional<{{dataType}}<{{baseType}}>> {{paramName}};
+    {{/isContainer}}
+    {{^isContainer}}
+    std::optional<{{{dataType}}}> {{paramName}};
+    {{/isContainer}}
+{{/allParams}}
+    void ReadParams(IOASClientRequest & req);
+};
+
+struct {{operationId}}Response {
+{{#returnType}}
+    {{#returnContainer}}
+        {{#isArray}}
+    std::optional<{{returnType}}<{{returnBaseType}}>> payload;
+        {{/isArray}}
+        {{#isMap}}
+            // TODO: map is not supported
+        {{/isMap}}
+    {{/returnContainer}}
+    {{^returnContainer}}
+    std::optional<{{returnType}}> payload;
+    {{/returnContainer}}
+{{/returnType}}
+{{^returnType}}
+    // no return type
+{{/returnType}}
+    int code;
+    void WriteResponse(IOASClientResponse & resp);
+    // friend std::ostream& operator<<(std::ostream& os, const {{operationId}}Response& resp);
+};
+
+// function user needs to implement
+typedef std::function<{{operationId}}Response({{operationId}}Params)> {{operationId}}HandlerFuncType;
+
+{{/operation}}
+
+{{/operations}}
+
+} // namespace openapi

@@ -1,0 +1,54 @@
+#include "{{classname}}.h"
+
+using namespace openapi;
+// todo include str/json header
+
+{{#operations}}
+
+// class name {{classname}}
+
+{{#operation}}
+
+void {{operationId}}Params::ReadParams(IOASClientRequest & req)
+{
+{{#allParams}}
+    {
+        using V = remove_optional<decltype(this->{{paramName}})>::type;
+    {{#isPathParam}}
+        V {{paramName}}Ret;
+        bool {{paramName}}Ok = req.GetPathParam<V>("{{paramName}}", {{paramName}}Ret);
+        if({{paramName}}Ok){
+            this->{{paramName}} = {{paramName}}Ret;
+        }
+    {{/isPathParam}}
+    {{#isQueryParam}}
+        V {{paramName}}Ret;
+        bool {{paramName}}Ok = req.GetQueryParam<V>("{{paramName}}", {{paramName}}Ret);
+        if({{paramName}}Ok){
+            this->{{paramName}} = {{paramName}}Ret;
+        }
+    {{/isQueryParam}}
+    {{#isBodyParam}}
+        std::string {{paramName}}Body = req.GetBody();
+        if ({{paramName}}Body.size() != 0){
+            this->{{paramName}} = Json::Deserialize<V>(openapi::StringT({{paramName}}Body.c_str()));
+        }
+    {{/isBodyParam}}
+    }
+{{/allParams}}
+}
+
+void {{operationId}}Response::WriteResponse(IOASClientResponse & resp)
+{
+    resp.SetCode(this->code);
+{{#returnType}}
+    if(this->payload.has_value())
+    {
+        resp.SetBodyResp(openapi::ToStdString(Json::Serialize(this->payload.value())));
+    }
+{{/returnType}}
+}
+
+{{/operation}}
+
+{{/operations}}

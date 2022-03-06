@@ -12,7 +12,7 @@ endif()
 option(CPP_SWAGGER_BuildTests     "Build the unit tests when BUILD_TESTING is enabled." ${CPP_SWAGGER_MAIN_PROJECT})
 option(CPP_SWAGGER_BuildExamples  "Build examples"                                      ${CPP_SWAGGER_MAIN_PROJECT})
 
-set(CPP_SWAGGER_AddExamplesSubDir ON)
+# set(CPP_SWAGGER_AddExamplesSubDir ON)
 option(CPP_SWAGGER_AddExamplesSubDir  
     "Include examples in cmake configure. Turn it off if you are regenerating exampels for build speed up" 
     OFF
@@ -39,7 +39,8 @@ if(CPP_SWAGGER_BuildExamples)
     add_dependencies(build-all-ci generate-task-tracker-example generate-todo-list-example)
 endif()
 
-#add_subdirectory(example/todo-list/gen/src)
-#add_subdirectory(example/todo-list/main)
+add_subdirectory(example/todo-list/gen/src)
+add_subdirectory(example/todo-list/main)
+add_subdirectory(example/todo-list/server)
 
-# add_subdirectory(example/task-tracker/gen/src)
+add_subdirectory(example/task-tracker/gen/src)

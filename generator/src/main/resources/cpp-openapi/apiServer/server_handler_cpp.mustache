@@ -1,0 +1,52 @@
+#include "server_handler.h"
+
+using namespace openapi;
+
+Server::Server(std::shared_ptr<ServerHandler> handler): handler_(handler), router_({})
+{
+    RouteBuilder<std::function<void(IOASClientRequest &, IOASClientResponse &)>> b;
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+
+    // std::function<void(IOASClientRequest & req, IOASClientResponse &resp)>
+{{#operation}}
+    b.AddRoute("{{httpMethod}}", "{{path}}",
+        [this](IOASClientRequest & req, IOASClientResponse &resp)
+        {
+            
+            {{operationId}}Params params;
+            params.ReadParams(req);
+            {{operationId}}Response res = this->handler_->{{operationId}}HandleFunc(params);
+            res.WriteResponse(resp);
+        });
+{{/operation}}
+
+    this->router_ = b.Build();
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
+}
+
+bool Server::GetHandlerFunc(std::string const & method, std::string const & path, PathParamValue &paramsRet, std::function<void(IOASClientRequest &, IOASClientResponse &)> & ret)
+{
+    bool ok = this->router_.LookUp(method, path, paramsRet, ret);
+    return ok;
+}
+
+
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+
+{{#operation}}
+{{operationId}}Response ServerHandler::{{operationId}}HandleFunc({{operationId}}Params params)
+{
+    // not implemented
+    return {{operationId}}Response{};
+}
+{{/operation}}
+
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}

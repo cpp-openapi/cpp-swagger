@@ -1,5 +1,10 @@
 myFile.sample
 src/CMakeLists.txt
+src/apiServer/CMakeLists.txt
+src/apiServer/TasksApi.cpp
+src/apiServer/TasksApi.h
+src/apiServer/server_handler.cpp
+src/apiServer/server_handler.h
 src/api/CMakeLists.txt
 src/api/TasksApi.cpp
 src/api/TasksApi.h
